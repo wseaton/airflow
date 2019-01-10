@@ -1,20 +1,9 @@
-import json
 import unittest
-from collections import namedtuple
 
 from airflow import configuration, AirflowException
 from airflow.contrib.hooks.vault_hook import VaultHook
 from airflow.models.connection import Connection
 from airflow.utils import db
-
-try:
-    from unittest import mock
-except ImportError:
-    try:
-        import mock
-    except ImportError:
-        mock = None
-
 
 class TestWasbHook(unittest.TestCase):
 
@@ -23,7 +12,7 @@ class TestWasbHook(unittest.TestCase):
         db.merge_conn(
             Connection(
                 conn_id='vault_test', conn_type='vault',
-                host='vault', port='8200', password='key'
+                host='vault', port='8200', password='airflow'
             )
         )
 
