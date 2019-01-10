@@ -89,6 +89,7 @@ class Connection(Base, LoggingMixin):
         ('qubole', 'Qubole'),
         ('mongo', 'MongoDB'),
         ('gcpcloudsql', 'Google Cloud SQL'),
+        ('vault', 'Hashicorp Vault')
     ]
 
     def __init__(
@@ -238,6 +239,9 @@ class Connection(Base, LoggingMixin):
             elif self.conn_type == 'gcpcloudsql':
                 from airflow.contrib.hooks.gcp_sql_hook import CloudSqlDatabaseHook
                 return CloudSqlDatabaseHook(gcp_cloudsql_conn_id=self.conn_id)
+            elif self.conn_type == 'vault':
+                from airflow.contrib.hooks.vault_hook import VaultHook
+                return VaultHook(vaul_conn_id=self.conn_id)
         except Exception:
             pass
 
