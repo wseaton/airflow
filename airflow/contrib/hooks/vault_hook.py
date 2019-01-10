@@ -16,8 +16,8 @@ class VaultHook(BaseHook, LoggingMixin):
         Prepares hook to connect to Vault instance via Token
         authentication.
 
-        Defaults to TLS, accepts `certfile` and `keyfile` in the extra
-        field to use client-side certificate authentication.
+        This class is a thin wrapper around the hvac python library.
+        Documentation for it is `here <https://hvac.readthedocs.io/en/latest/index.html>`_.
 
         :param conn_id:     name of the connection containing Vault connection details.
         :param tls:         whether or not to use TLS for the connection,
