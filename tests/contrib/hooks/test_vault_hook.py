@@ -5,7 +5,7 @@ from airflow.contrib.hooks.vault_hook import VaultHook
 from airflow.models.connection import Connection
 from airflow.utils import db
 
-class TestWasbHook(unittest.TestCase):
+class TestVaultHook(unittest.TestCase):
 
     def setUp(self):
         configuration.load_test_config()
