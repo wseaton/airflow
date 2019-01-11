@@ -52,18 +52,6 @@ install:
   - sudo mv docker-compose /usr/local/bin
   - pip install --upgrade pip
 script:
-  - if [ -z "$KUBERNETES_VERSION" ]; then docker-compose --log-level ERROR -f scripts/ci/docker-compose.yml run airflow-testing /app/scripts/ci/run-ci.sh; fi
-  - if [ ! -z "$KUBERNETES_VERSION" ]; then
-      ./scripts/ci/kubernetes/minikube/stop_minikube.sh &&
-      ./scripts/ci/kubernetes/setup_kubernetes.sh &&
-      ./scripts/ci/kubernetes/kube/deploy.sh -d persistent_mode &&
-      MINIKUBE_IP=$(minikube ip) docker-compose --log-level ERROR -f scripts/ci/docker-compose.yml -f scripts/ci/docker-compose-kubernetes.yml run airflow-testing /app/scripts/ci/run-ci.sh;
-    fi
-  - if [ ! -z "$KUBERNETES_VERSION" ]; then
-      ./scripts/ci/kubernetes/minikube/stop_minikube.sh &&
-      ./scripts/ci/kubernetes/setup_kubernetes.sh &&
-      ./scripts/ci/kubernetes/kube/deploy.sh -d git_mode &&
-      MINIKUBE_IP=$(minikube ip) docker-compose --log-level ERROR -f scripts/ci/docker-compose.yml -f scripts/ci/docker-compose-kubernetes.yml run airflow-testing /app/scripts/ci/run-ci.sh;
-    fi
+  - docker-compose -f scripts/ci/docker-compose.yml run airflow-testing ./run_unit_tests.sh tests.contrib.hooks.test_vault_hook -s --logging-level=DEBUG
 before_cache:
   - sudo chown -R travis:travis $HOME/.cache/pip $HOME/.wheelhouse/
