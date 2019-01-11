@@ -19,7 +19,7 @@ class VaultHook(BaseHook, LoggingMixin):
         Documentation for it is `here <https://hvac.readthedocs.io/en/latest/index.html>`_.
 
         :param conn_id:     name of the connection containing Vault connection details.
-        :param tls:         whether or not to use TLS for the connection,
+        :param ssl:         whether or not to use SSL for the connection,
                             defaults to True.
         """
         self.vault_conn_id = vault_conn_id
@@ -49,7 +49,7 @@ class VaultHook(BaseHook, LoggingMixin):
                 self.port,
             )
         try:
-            scheme = "http" if not self.tls else "https"
+            scheme = "https" if self.ssl else "http"
             url = "{scheme}://{host}:{port}"
 
             self.client = hvac.Client(

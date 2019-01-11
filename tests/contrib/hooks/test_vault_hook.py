@@ -18,7 +18,7 @@ class TestVaultHook(unittest.TestCase):
         )
 
     def test_actual_read_and_write(self):
-        hook = VaultHook(vault_conn_id='vault_test', tls=False)
+        hook = VaultHook(vault_conn_id='vault_test', ssl=False)
         client = hook.get_conn()
 
         self.assertTrue(client.write('secret/foo', bar='bar'), 'Vault WRITE works.')
