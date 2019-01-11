@@ -1,4 +1,3 @@
-import os
 import hvac
 
 from airflow.exceptions import AirflowException
@@ -76,7 +75,7 @@ class VaultHook(BaseHook, LoggingMixin):
     def write(self, key, **kwargs):
         """
         Write to a vault location.
-            
+
         :param key:     the vault key to write to
         :param kwargs:  passthrough arguments to hvac client
         """

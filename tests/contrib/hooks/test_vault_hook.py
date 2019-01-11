@@ -1,9 +1,10 @@
 import unittest
 
-from airflow import configuration, AirflowException
+from airflow import configuration
 from airflow.contrib.hooks.vault_hook import VaultHook
 from airflow.models.connection import Connection
 from airflow.utils import db
+
 
 class TestVaultHook(unittest.TestCase):
 
@@ -17,7 +18,7 @@ class TestVaultHook(unittest.TestCase):
         )
 
     def test_actual_read_and_write(self):
-        hook = VaultHook(vault_conn_id='vault_test')
+        hook = VaultHook(vault_conn_id='vault_test', tls=False)
         client = hook.get_conn()
 
         self.assertTrue(client.write('secret/foo', bar='bar'), 'Vault WRITE works.')
