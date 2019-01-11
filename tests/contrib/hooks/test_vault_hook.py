@@ -23,4 +23,6 @@ class TestVaultHook(unittest.TestCase):
 
         self.assertTrue(client.write('secret/foo', bar='bar'), 'Vault WRITE works.')
         self.assertEqual(client.read('secret/foo')['data']['bar'], 'bar', 'Vault READ works.')
-        self.assertTrue(client.delete('secret/foo'), 'Vault DEL works.')
+        
+        client.delete('secret/foo')
+        self.assertFalse(client.read('secret/foo'))
