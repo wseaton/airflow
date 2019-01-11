@@ -51,9 +51,15 @@ services:
 
   vault:
     image: vault:1.0.1
-    command: -cap-add=IPC_LOCK
     environment:
-      - VAULT_DEV_ROOT_TOKEN_ID=airflow
+      VAULT_DEV_ROOT_TOKEN_ID: "airflow"
+      VAULT_ADDR: http://127.0.0.1:8200
+    ports:
+      - "8200:8200"
+    volumes:
+      - ./vault:/config:z
+    entrypoint: vault server -dev
+      
 
   openldap:
     image: osixia/openldap:1.2.0
